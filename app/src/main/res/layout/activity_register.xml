@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.Register"
+    android:orientation="vertical"
+    android:background="@drawable/register_bg">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.75"
+        android:layout_marginBottom="-36dp"
+        app:cardBackgroundColor="#F5F5FA"
+        app:cardElevation="12dp"
+        app:cardCornerRadius="48dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Create New Account"
+                android:textColor="@color/brown_00"
+                android:fontFamily="@font/funnel_display_semi_bold"
+                android:textSize="28sp"
+                android:padding="16dp"
+                android:gravity="center">
+            </TextView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="12dp"
+                app:cardCornerRadius="28dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center|top">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="36dp"
+                        app:cardElevation="1dp"
+                        app:cardCornerRadius="8dp">
+
+                        <EditText
+                            android:id="@+id/edtUsername"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:inputType="text"
+                            android:hint="Enter your username"
+                            android:textSize="14sp"
+                            android:textColorHint="#99BDBDBD"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:scrollHorizontally="true"
+                            android:background="@drawable/input_bg"
+                            android:drawableLeft="@drawable/baseline_person_24"
+                            android:drawablePadding="16dp"
+                            android:padding="14dp">
+                        </EditText>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="12dp"
+                        app:cardElevation="1dp"
+                        app:cardCornerRadius="8dp">
+
+                        <EditText
+                            android:id="@+id/edtEmail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:inputType="text"
+                            android:hint="Enter your email"
+                            android:textSize="14sp"
+                            android:textColorHint="#99BDBDBD"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:scrollHorizontally="true"
+                            android:background="@drawable/input_bg"
+                            android:drawableLeft="@drawable/baseline_email_24"
+                            android:drawablePadding="16dp"
+                            android:padding="14dp">
+                        </EditText>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="12dp"
+                        app:cardElevation="1dp"
+                        app:cardCornerRadius="8dp">
+
+                        <EditText
+                            android:id="@+id/edtPassword"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:inputType="textPassword"
+                            android:hint="Enter your password"
+                            android:textSize="14sp"
+                            android:textColorHint="#99BDBDBD"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:scrollHorizontally="true"
+                            android:background="@drawable/input_bg"
+                            android:drawableLeft="@drawable/baseline_lock_24"
+                            android:drawablePadding="16dp"
+                            android:padding="14dp">
+                        </EditText>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="12dp"
+
+                        app:cardElevation="1dp"
+                        app:cardCornerRadius="8dp">
+
+                        <EditText
+                            android:id="@+id/edtConfPassword"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:inputType="textPassword"
+                            android:hint="Confirm your password"
+                            android:textSize="14sp"
+                            android:textColorHint="#99BDBDBD"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:scrollHorizontally="true"
+                            android:background="@drawable/input_bg"
+                            android:drawableLeft="@drawable/baseline_password_24"
+                            android:drawablePadding="16dp"
+                            android:padding="14dp">
+                        </EditText>
+                    </androidx.cardview.widget.CardView>
+
+                    <Button
+                        android:id="@+id/registerBtn"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/brown_04"
+                        android:fontFamily="@font/funnel_display_medium"
+                        android:text="REGISTER"
+                        android:textSize="16sp"
+                        android:letterSpacing="0.1"
+                        android:layout_marginTop="36dp"
+                        android:padding="12dp"
+                        android:gravity="center">
+                    </Button>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:layout_marginTop="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:text="Already have an account?"
+                            android:textColor="#959595">
+
+                        </TextView>
+
+                        <TextView
+                            android:id="@+id/loginHyperlink"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat_semi_bold"
+                            android:text="Login"
+                            android:textColor="@color/brown_04"
+                            android:layout_marginLeft="6dp">
+                        </TextView>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

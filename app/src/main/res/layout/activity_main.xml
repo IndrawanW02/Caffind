@@ -10,24 +10,25 @@
     android:background="@drawable/background_main"
     tools:context=".activities.MainActivity">
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:ignore="MissingConstraints"
-        android:background="@drawable/rounded_border"
-        android:gravity="center"
-        android:layout_alignParentTop="true"
-        android:padding="24dp"
-        android:id="@+id/header">
+        android:layout_marginTop="-24dp"
+        app:contentPadding="24dp"
+        app:cardCornerRadius="28dp"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="@color/white">
 
         <ImageView
             android:layout_width="75dp"
             android:layout_height="50dp"
+            android:layout_gravity="center"
             android:src="@drawable/logo"
-            android:scaleType="fitCenter">
+            android:scaleType="fitCenter"
+            android:layout_marginTop="12dp">
         </ImageView>
-    </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
     <!-- FrameLayout to host fragments -->
     <FrameLayout
@@ -37,11 +38,17 @@
         android:layout_below="@+id/header"
         android:layout_above="@id/tabLayout">
 
-        <ListView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/coffeeSpotList"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:divider="@android:color/transparent"/>
+            android:layout_height="match_parent">
+
+        </androidx.recyclerview.widget.RecyclerView>
+<!--        <ListView-->
+<!--            android:id="@+id/coffeeSpotList"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:divider="@android:color/transparent"/>-->
     </FrameLayout>
 
     <!-- TabLayout   for tabs -->

@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +26,8 @@ import id.ac.binus.caffind.utils.DatabaseHelper;
 public class MainActivity extends AppCompatActivity {
     Window window;
     List<CoffeeShopModel> coffeeSpotData;
-    ListView coffeeSpotList;
+//    ListView coffeeSpotList;
+    RecyclerView coffeeSpotList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,15 +48,18 @@ public class MainActivity extends AppCompatActivity {
         DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
 //        databaseHelper.registerNewAccount("Indra", "indra@binus.ac.id", "123");
 
+//        Intent registerPage = new Intent(MainActivity.this, Register.class);
+//        startActivity(registerPage);
+
         coffeeSpotData = new ArrayList<>();
         coffeeSpotData = databaseHelper.getCoffeeShopList();
-
-        ContentAdapter adapter = new ContentAdapter(getApplicationContext(), coffeeSpotData);
-
+//
+//        ContentAdapter adapter = new ContentAdapter(getApplicationContext(), coffeeSpotData);
+//
         coffeeSpotList = findViewById(R.id.coffeeSpotList);
-        coffeeSpotList.setAdapter(adapter);
+        coffeeSpotList.setLayoutManager(new LinearLayoutManager(this));
 
-        coffeeSpotList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        ContentAdapter adapter = new ContentAdapter(getApplicationContext(), coffeeSpotData, new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent coffeeSpotDetailPage = new Intent(MainActivity.this, CoffeeShopDetail.class);
@@ -62,6 +68,19 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(coffeeSpotDetailPage);
             }
         });
+
+        coffeeSpotList.setAdapter(adapter);
+//        coffeeSpotList.setAdapter(adapter);
+//
+//        coffeeSpotList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Intent coffeeSpotDetailPage = new Intent(MainActivity.this, CoffeeShopDetail.class);
+//
+//                coffeeSpotDetailPage.putExtra("id", coffeeSpotData.get(i).getId());
+//                startActivity(coffeeSpotDetailPage);
+//            }
+//        });
     }
 
 }
