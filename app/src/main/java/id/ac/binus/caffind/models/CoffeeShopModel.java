@@ -3,19 +3,19 @@ package id.ac.binus.caffind.models;
 public class CoffeeShopModel {
     int id;
     String name;
+    String description;
     String location;
     String operationHours;
     String priceRange;
-    String description;
-    int image;
+    byte[] image;
 
-    public CoffeeShopModel(int id, String name, String location, String operationHours, String priceRange, String description, int image) {
+    public CoffeeShopModel(int id, String name, String description, String location, String operationHours, String priceRange, byte[] image) {
         this.id = id;
         this.name = name;
+        this.description = description;
         this.location = location;
         this.operationHours = operationHours;
         this.priceRange = priceRange;
-        this.description = description;
         this.image = image;
     }
 
@@ -33,6 +33,14 @@ public class CoffeeShopModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getLocation() {
@@ -59,19 +67,11 @@ public class CoffeeShopModel {
         this.priceRange = priceRange;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 }

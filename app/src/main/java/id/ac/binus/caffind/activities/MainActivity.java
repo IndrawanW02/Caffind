@@ -24,11 +24,6 @@ import id.ac.binus.caffind.utils.ContentAdapter;
 import id.ac.binus.caffind.utils.DatabaseHelper;
 
 public class MainActivity extends AppCompatActivity {
-    Window window;
-    List<CoffeeShopModel> coffeeSpotData;
-//    ListView coffeeSpotList;
-    RecyclerView coffeeSpotList;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,47 +35,9 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        window = this.getWindow();
-        window.setStatusBarColor(this.getResources().getColor(R.color.white));
-        window.setNavigationBarColor(this.getResources().getColor(R.color.white));
-
 //        getApplicationContext().deleteDatabase("Caffind");
-        DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
-//        databaseHelper.registerNewAccount("Indra", "indra@binus.ac.id", "123");
-
-//        Intent registerPage = new Intent(MainActivity.this, Register.class);
-//        startActivity(registerPage);
-
-        coffeeSpotData = new ArrayList<>();
-        coffeeSpotData = databaseHelper.getCoffeeShopList();
-//
-//        ContentAdapter adapter = new ContentAdapter(getApplicationContext(), coffeeSpotData);
-//
-        coffeeSpotList = findViewById(R.id.coffeeSpotList);
-        coffeeSpotList.setLayoutManager(new LinearLayoutManager(this));
-
-        ContentAdapter adapter = new ContentAdapter(getApplicationContext(), coffeeSpotData, new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent coffeeSpotDetailPage = new Intent(MainActivity.this, CoffeeShopDetail.class);
-
-                coffeeSpotDetailPage.putExtra("id", coffeeSpotData.get(i).getId());
-                startActivity(coffeeSpotDetailPage);
-            }
-        });
-
-        coffeeSpotList.setAdapter(adapter);
-//        coffeeSpotList.setAdapter(adapter);
-//
-//        coffeeSpotList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Intent coffeeSpotDetailPage = new Intent(MainActivity.this, CoffeeShopDetail.class);
-//
-//                coffeeSpotDetailPage.putExtra("id", coffeeSpotData.get(i).getId());
-//                startActivity(coffeeSpotDetailPage);
-//            }
-//        });
+        Intent intent = new Intent(MainActivity.this, FragmentHub.class);
+        startActivity(intent);
     }
 
 }
