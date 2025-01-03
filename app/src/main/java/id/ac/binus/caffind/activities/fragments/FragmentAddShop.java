@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -61,10 +62,8 @@ public class FragmentAddShop extends Fragment {
     private int openHour, openMinute, closeHour, closeMinute;
     private byte[] selectedImage;
 
-    private Button selectImageBtn;
     private ImageView imagePreview;
     private EditText shopNameInput, shopDescriptionInput, shopAddressInput, openingTimeInput, closingTimeInput, minPriceInput, maxPriceInput;
-    private Button submitBtn;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -109,9 +108,7 @@ public class FragmentAddShop extends Fragment {
         View view = inflater.inflate(R.layout.fragment_add_shop, container, false);
 
         imagePreview = view.findViewById(R.id.imageView);
-        selectImageBtn = view.findViewById(R.id.selectImageButton);
-        // set default selected image
-        selectedImage = getDefaultImageAsByteArray(getContext());
+        Button selectImageBtn = view.findViewById(R.id.selectImageButton);
 
         // selected image preview
         ActivityResultLauncher<Intent> galleryLauncher = registerForActivityResult(
@@ -127,7 +124,7 @@ public class FragmentAddShop extends Fragment {
                 }
         );
 
-        // select image to upload
+        // selectImage button onClick
         selectImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -211,7 +208,7 @@ public class FragmentAddShop extends Fragment {
         minPriceInput = view.findViewById(R.id.edtMinPrice);
         maxPriceInput = view.findViewById(R.id.edtMaxPrice);
 
-        submitBtn = view.findViewById(R.id.submitBtn);
+        Button submitBtn = view.findViewById(R.id.submitBtn);
 
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -230,9 +227,14 @@ public class FragmentAddShop extends Fragment {
                     // format operational Hours
                     String operationHours = openHour + " - " + closeHour;
 
-                    // format price range
+                    // format menu price range
                     NumberFormat formatter = NumberFormat.getInstance(new Locale("id", "ID"));
                     String menuPriceRange = "Rp" + formatter.format(Integer.parseInt(minPrice)) + " - " + "Rp" + formatter.format(Integer.parseInt(maxPrice));
+
+                    // set default selected image if the user didn't upload an image
+                    if(selectedImage == null){
+                        selectedImage = getDefaultImageAsByteArray(getContext());
+                    }
 
                     db.addNewCoffeeSpot(name, description, address, operationHours, menuPriceRange, selectedImage);
 
@@ -380,7 +382,7 @@ public class FragmentAddShop extends Fragment {
 
         // Convert bitmap to byte[]
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        bitmap.compress(Bitmap.CompressFormat.PNG, 80, stream);
         return stream.toByteArray();
     }
 }

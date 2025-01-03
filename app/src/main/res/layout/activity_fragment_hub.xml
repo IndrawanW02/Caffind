@@ -6,16 +6,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/background_main"
+    android:background="@color/white"
     tools:context=".activities.FragmentHub">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-24dp"
         app:contentPadding="24dp"
-        app:cardCornerRadius="28dp"
+        app:cardCornerRadius="0dp"
         app:cardElevation="8dp"
         app:cardBackgroundColor="@color/white"
         android:layout_alignParentTop="true">
@@ -25,8 +24,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:src="@drawable/logo"
-            android:scaleType="fitCenter"
-            android:layout_marginTop="12dp">
+            android:scaleType="fitCenter">
         </ImageView>
     </androidx.cardview.widget.CardView>
 
@@ -36,15 +34,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/header"
-        android:layout_above="@id/tabLayout">
+        android:layout_above="@id/tabLayout"
+        android:background="@drawable/main_background">
     </FrameLayout>
 
-    <!-- TabLayout   for tabs -->
+    <!-- TabLayout for tabs -->
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@drawable/tablayout_bg"
         app:tabIndicatorColor="@color/brown_02"
         app:tabIconTint="@color/brown_01"
         app:tabSelectedTextColor="@color/brown_02"

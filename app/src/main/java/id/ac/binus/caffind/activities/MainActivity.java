@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 //        getApplicationContext().deleteDatabase("Caffind");
         Intent intent = new Intent(MainActivity.this, FragmentHub.class);
         startActivity(intent);
+        finish();
     }
 
 }
