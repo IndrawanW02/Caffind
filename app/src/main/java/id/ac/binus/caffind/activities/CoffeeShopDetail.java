@@ -4,10 +4,8 @@ import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -40,13 +38,12 @@ import id.ac.binus.caffind.utils.DatabaseHelper;
 public class CoffeeShopDetail extends AppCompatActivity implements OnMapReadyCallback {
     CoffeeShopModel choosenCoffeeShop;
 
-    CardView imgContainer, mapContainer;
+    CardView mapContainer;
     Button viewMapBtn;
     FrameLayout mapTemplate;
     ImageView coffeeShopImg;
     TextView coffeeShopName, coffeeShopLocation, coffeeShopOperationHours, coffeeShopPriceRange, coffeeShopDescription;
 
-    GoogleMap map;
     Double locaitionLatitude, locationLongtitude;
 
     @Override
@@ -59,18 +56,6 @@ public class CoffeeShopDetail extends AppCompatActivity implements OnMapReadyCal
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_FULLSCREEN);
-
-//      Set coffeeShop image container size to be 65% height of the device height
-//        imgContainer = findViewById(R.id.imgCard);
-//        DisplayMetrics displayMetrics = new DisplayMetrics();
-//        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-//        int screenHeight = displayMetrics.heightPixels;
-//
-//        ViewGroup.LayoutParams params = imgContainer.getLayoutParams();
-//        params.height = (int) (screenHeight * 0.65);
-//        imgContainer.setLayoutParams(params);
 
 //      Set map initialization to when user click on the map
         mapContainer = findViewById(R.id.mapContainer);
@@ -97,15 +82,13 @@ public class CoffeeShopDetail extends AppCompatActivity implements OnMapReadyCal
 
         choosenCoffeeShop = databaseHelper.getCoffeeShopById(getIntent().getIntExtra("id", 0));
 
+        // Initialize views
         coffeeShopImg = findViewById(R.id.imgData);
         coffeeShopName = findViewById(R.id.nameData);
         coffeeShopLocation = findViewById(R.id.locationData);
         coffeeShopOperationHours = findViewById(R.id.operationHoursData);
         coffeeShopPriceRange = findViewById(R.id.priceRangeData);
         coffeeShopDescription = findViewById(R.id.descriptionData);
-
-//        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapLocation);
-//        mapFragment.getMapAsync(this);
 
         byte[] imgBuffer = choosenCoffeeShop.getImage();
         coffeeShopImg.setImageBitmap(BitmapFactory.decodeByteArray(imgBuffer, 0, imgBuffer.length));
@@ -134,14 +117,11 @@ public class CoffeeShopDetail extends AppCompatActivity implements OnMapReadyCal
         }
     }
 
-
-
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         LatLng location = new LatLng(locaitionLatitude, locationLongtitude);
         googleMap.addMarker(new MarkerOptions().position(location).title(choosenCoffeeShop.getName()));
         googleMap.setPadding(0, 200, 0, 0);
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15));
-
     }
 }

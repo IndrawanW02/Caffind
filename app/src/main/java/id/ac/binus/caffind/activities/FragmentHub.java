@@ -1,10 +1,8 @@
 package id.ac.binus.caffind.activities;
 
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
-import android.view.Window;
-import android.widget.AdapterView;
+
 import android.widget.FrameLayout;
 
 import androidx.activity.EdgeToEdge;
@@ -13,26 +11,18 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.tabs.TabLayout;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.google.gson.Gson;
 
 import id.ac.binus.caffind.R;
 import id.ac.binus.caffind.activities.fragments.FragmentAddShop;
 import id.ac.binus.caffind.activities.fragments.FragmentCoffeeShopList;
-import id.ac.binus.caffind.models.CoffeeShopModel;
-import id.ac.binus.caffind.utils.ContentAdapter;
-import id.ac.binus.caffind.utils.DatabaseHelper;
+import id.ac.binus.caffind.activities.fragments.FragmentProfile;
+import id.ac.binus.caffind.activities.fragments.FragmentUnauthenticated;
+import id.ac.binus.caffind.models.UserModel;
 
 public class FragmentHub extends AppCompatActivity {
-    private Window window;
-
-    private FrameLayout frameLayout;
-    private TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,26 +35,43 @@ public class FragmentHub extends AppCompatActivity {
             return insets;
         });
 
-        window = this.getWindow();
-        window.setStatusBarColor(this.getResources().getColor(R.color.white));
-        window.setNavigationBarColor(this.getResources().getColor(R.color.white));
+        if (savedInstanceState == null) {
+            // set default fragment to be shown (Fragment: CoffeeShopList)
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentContainer, new FragmentCoffeeShopList())
+                    .commit();
+        }
 
-        frameLayout = findViewById(R.id.fragmentContainer);
-        tabLayout = findViewById(R.id.tabLayout);
+        // Get current logged in user
+        UserModel currUser = getUserFromPreferences();
 
-        // set default fragment to be shown (Fragment: CoffeeShopList)
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new FragmentCoffeeShopList()).addToBackStack(null).commit();
+        // Initialize views and listener
+        FrameLayout frameLayout = findViewById(R.id.fragmentContainer);
+        TabLayout tabLayout = findViewById(R.id.tabLayout);
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                Fragment fragment = null;
+                Fragment fragment = new FragmentCoffeeShopList();
                 switch (tab.getPosition()){
                     case 0:
                         fragment = new FragmentCoffeeShopList();
                         break;
                     case 1:
-                        fragment = new FragmentAddShop();
+                        // Check if the user has logged in or not
+                        if(currUser == null){
+                            fragment = new FragmentUnauthenticated("Oops! Only registered users can add a new coffee spot.");
+                        } else{
+                            fragment = new FragmentAddShop();
+                        }
+                        break;
+                    case 2:
+                        // Check if the user has logged in or not
+                        if(currUser == null){
+                            fragment = new FragmentUnauthenticated("Profile access is restricted to registered users only.");
+                        } else{
+                            fragment = new FragmentProfile(currUser);
+                        }
                         break;
                 }
 
@@ -81,5 +88,18 @@ public class FragmentHub extends AppCompatActivity {
 
             }
         });
+    }
+
+    public UserModel getUserFromPreferences() {
+        SharedPreferences preferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
+
+        Gson gson = new Gson();
+        String json = preferences.getString("user", null); // Fetch user JSON data from SharedPreferences
+
+        if (json != null) {
+            return gson.fromJson(json, UserModel.class); // Convert user JSON data
+        }
+
+        return null; // Return null if the data is not found
     }
 }

@@ -3,7 +3,6 @@ package id.ac.binus.caffind.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,9 +21,7 @@ import id.ac.binus.caffind.utils.DatabaseHelper;
 public class Register extends AppCompatActivity {
 
     private EditText edtUsername, edtEmail, edtPassword, edtConfPassword;
-    private Button registerBtn;
     private DatabaseHelper db;
-    private TextView loginhyperlink;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +34,13 @@ public class Register extends AppCompatActivity {
             return insets;
         });
 
-        // Initialize views
+        // Initialize views and listeners
         edtUsername = findViewById(R.id.edtUsername);
         edtEmail = findViewById(R.id.edtEmail);
         edtPassword = findViewById(R.id.edtPassword);
         edtConfPassword = findViewById(R.id.edtConfPassword);
-        registerBtn = findViewById(R.id.registerBtn);
-        loginhyperlink = findViewById(R.id.loginHyperlink);
+        Button registerBtn = findViewById(R.id.registerBtn);
+        TextView loginhyperlink = findViewById(R.id.loginHyperlink);
 
         db = new DatabaseHelper(this);
 
@@ -55,11 +52,13 @@ public class Register extends AppCompatActivity {
             }
         });
 
+        // Login Hyperlink click listener
         loginhyperlink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Register.this, Login.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
@@ -72,13 +71,13 @@ public class Register extends AppCompatActivity {
 
         if (validateInput(username, email, password, confPassword)) {
             if (db.registerNewAccount(username, email, password)) {
-                Toast.makeText(this, "Registration Successful!", Toast.LENGTH_SHORT).show();
-            }
+                // Navigate to the login activity
+                Intent intent = new Intent(Register.this, Login.class);
+                startActivity(intent);
 
-            // Navigate to the main/home activity
-            Intent intent = new Intent(Register.this, CoffeeShopDetail.class);
-            startActivity(intent);
-            finish();
+                Toast.makeText(this, "Registration Successful!", Toast.LENGTH_SHORT).show();
+                finish();
+            }
         }
     }
 

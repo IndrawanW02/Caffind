@@ -55,6 +55,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Name"
+                    android:ellipsize="end"
+                    android:maxLines="2"
                     android:textColor="@color/brown_00"
                     android:fontFamily="@font/funnel_display_semi_bold"
                     android:textSize="16sp"
@@ -86,7 +88,5 @@
                     android:layout_marginBottom="6dp"/>
             </RelativeLayout>
         </LinearLayout>
-
-
     </androidx.cardview.widget.CardView>
 </LinearLayout>

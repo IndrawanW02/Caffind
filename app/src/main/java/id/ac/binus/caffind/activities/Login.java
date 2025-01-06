@@ -1,6 +1,7 @@
 package id.ac.binus.caffind.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -15,14 +16,15 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.gson.Gson;
+
 import id.ac.binus.caffind.R;
+import id.ac.binus.caffind.models.UserModel;
 import id.ac.binus.caffind.utils.DatabaseHelper;
 
 public class Login extends AppCompatActivity {
 
     private EditText edtEmail, edtPassword;
-    private Button loginBtn;
-    private TextView registerHyperlink;
     private DatabaseHelper db;
 
     @Override
@@ -36,11 +38,11 @@ public class Login extends AppCompatActivity {
             return insets;
         });
 
-        // Initialize views
+        // Initialize views and listeners
         edtEmail = findViewById(R.id.edtEmail);
         edtPassword = findViewById(R.id.edtPassword);
-        loginBtn = findViewById(R.id.registerBtn);
-        registerHyperlink = findViewById(R.id.loginHyperlink);
+        Button loginBtn = findViewById(R.id.loginBtn);
+        TextView registerHyperlink = findViewById(R.id.loginHyperlink);
 
         db = new DatabaseHelper(this);
 
@@ -58,8 +60,20 @@ public class Login extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Login.this, Register.class);
                 startActivity(intent);
+                finish();
             }
         });
+    }
+
+    public void saveUserToPreferences(UserModel user) {
+        SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        Gson gson = new Gson();
+        String json = gson.toJson(user); // Convert UserModel to JSON
+
+        editor.putString("user", json); // Save user.JSON to SharedPreferences
+        editor.apply();
     }
 
     private void loginUser() {
@@ -67,12 +81,23 @@ public class Login extends AppCompatActivity {
         String password = edtPassword.getText().toString();
 
         if (validateInput(email, password)) {
-            if (db.authenticateUser(email, password)) {
-                Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show();
+            UserModel currUser = db.authenticateUser(email, password);
+            if (currUser != null) {
+                saveUserToPreferences(currUser);
+                // Saves the application status which the application has been run before
+                SharedPreferences preferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean("isFirstRun", false);
+                editor.apply();
 
                 // Navigate to the main/home activity
-                Intent intent = new Intent(Login.this, CoffeeShopDetail.class); // Replace with your main activity
+                Intent intent = new Intent(Login.this, FragmentHub.class);
+
+                // Clears all previously existing activities in the stack
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+
+                Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show();
                 finish();
             } else {
                 Toast.makeText(this, "Invalid email or password!", Toast.LENGTH_SHORT).show();

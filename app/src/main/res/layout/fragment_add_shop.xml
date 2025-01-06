@@ -19,15 +19,7 @@
             android:text="New coffee spot?"
             android:textColor="@color/brown_04"
             android:fontFamily="@font/funnel_display_bold"
-            android:textSize="32sp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add it here!"
-            android:textColor="@color/brown_04"
-            android:fontFamily="@font/funnel_display_bold"
-            android:textSize="32sp"/>
+            android:textSize="48sp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,7 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginLeft="6dp">
+                android:layout_marginStart="6dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -58,7 +50,7 @@
                     android:fontFamily="@font/montserrat_medium_italic"
                     android:textSize="15sp"
                     android:alpha="0.2"
-                    android:layout_marginLeft="6dp"/>
+                    android:layout_marginStart="6dp"/>
             </LinearLayout>
 
             <androidx.cardview.widget.CardView
@@ -85,13 +77,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_gravity="center"
-                android:minWidth="0dp"
-                android:minHeight="0dp"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
                 android:fontFamily="@font/montserrat_medium"
                 android:textSize="12sp"
                 android:text="Select Image"
-                android:textColor="@color/white"
-                android:backgroundTint="@color/brown_03"/>
+                android:textColor="@color/brown_00"
+                android:background="@drawable/button_unfilled"/>
         </LinearLayout>
 
 
@@ -105,7 +97,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="6dp"
+                android:layout_marginStart="6dp"
                 android:text="Shop Name"
                 android:textColor="@color/black"
                 android:fontFamily="@font/montserrat_semi_bold"
@@ -152,7 +144,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginLeft="6dp">
+                android:layout_marginStart="6dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -204,7 +196,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:layout_marginRight="6dp"
+                android:layout_marginEnd="6dp"
                 android:gravity="end"
                 android:text="*max 300 characters"
                 android:textColor="@color/black"
@@ -223,7 +215,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="6dp"
+                android:layout_marginStart="6dp"
                 android:text="Shop Address"
                 android:textColor="@color/black"
                 android:fontFamily="@font/montserrat_semi_bold"
@@ -269,7 +261,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="6dp"
+                android:layout_marginStart="6dp"
                 android:text="Shop Operational Hours"
                 android:textColor="@color/black"
                 android:fontFamily="@font/montserrat_semi_bold"
@@ -377,7 +369,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="6dp"
+                android:layout_marginStart="6dp"
                 android:text="Menu Price Range"
                 android:textColor="@color/black"
                 android:fontFamily="@font/montserrat_semi_bold"
@@ -476,15 +468,16 @@
 
         <Button
             android:id="@+id/submitBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="48dp"
             android:layout_marginBottom="24dp"
             android:layout_gravity="center"
             android:fontFamily="@font/montserrat_medium"
-            android:textSize="12sp"
-            android:text="Submit A Coffee Shop"
+            android:text="Submit a Coffee Shop"
+            android:textSize="16sp"
             android:textColor="@color/white"
-            android:backgroundTint="@color/brown_04"/>
+            android:textAllCaps="false"
+            android:background="@drawable/button_filled"/>
     </LinearLayout>
 </ScrollView>

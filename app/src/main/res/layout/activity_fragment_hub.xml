@@ -47,23 +47,29 @@
         app:tabIndicatorColor="@color/brown_02"
         app:tabIconTint="@color/brown_01"
         app:tabSelectedTextColor="@color/brown_02"
+        app:tabIndicatorFullWidth="false"
+        app:tabTextAppearance="@style/CustomTabTextAppearance"
         android:layout_alignParentBottom="true">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Catalogue"
-            android:id="@+id/spotAdd"
             tools:ignore="HardcodedText">
         </com.google.android.material.tabs.TabItem>
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Form"
-            android:id="@+id/mainMenu"
+            android:text="Add Location"
+            tools:ignore="HardcodedText">
+        </com.google.android.material.tabs.TabItem>
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Profile"
             tools:ignore="HardcodedText">
         </com.google.android.material.tabs.TabItem>
     </com.google.android.material.tabs.TabLayout>
-
 </RelativeLayout>

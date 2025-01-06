@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -16,10 +16,8 @@ import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -28,20 +26,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Objects;
 
 import id.ac.binus.caffind.R;
 import id.ac.binus.caffind.utils.DatabaseHelper;
@@ -106,6 +100,10 @@ public class FragmentAddShop extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_shop, container, false);
+
+        SharedPreferences preferences = requireContext().getSharedPreferences("AppPrefs", Context.MODE_PRIVATE);
+        boolean isLoggedIn = preferences.getBoolean("isLoggedIn", false);
+
 
         imagePreview = view.findViewById(R.id.imageView);
         Button selectImageBtn = view.findViewById(R.id.selectImageButton);
@@ -236,10 +234,12 @@ public class FragmentAddShop extends Fragment {
                         selectedImage = getDefaultImageAsByteArray(getContext());
                     }
 
-                    db.addNewCoffeeSpot(name, description, address, operationHours, menuPriceRange, selectedImage);
-
-                    resetFormInput();
-                    Toast.makeText(getContext(), "New Coffee Spot Added!", Toast.LENGTH_SHORT).show();
+                    if(db.addNewCoffeeSpot(name, description, address, operationHours, menuPriceRange, selectedImage)){
+                        resetFormInput();
+                        Toast.makeText(getContext(), "New Coffee Spot Added!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getContext(), "Failed to add a coffee spot!", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -287,8 +287,8 @@ public class FragmentAddShop extends Fragment {
             shopAddressInput.requestFocus();
             inputValidation = "REJECTED";
         }
-        else if(address.length() > 150){
-            shopAddressInput.setError("Address length must be within 150 characters");
+        else if(address.length() > 200){
+            shopAddressInput.setError("Address length must be within 200 characters");
             shopAddressInput.requestFocus();
             inputValidation = "REJECTED";
         }
@@ -382,7 +382,7 @@ public class FragmentAddShop extends Fragment {
 
         // Convert bitmap to byte[]
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 80, stream);
+        bitmap.compress(Bitmap.CompressFormat.WEBP, 80, stream);
         return stream.toByteArray();
     }
 }
